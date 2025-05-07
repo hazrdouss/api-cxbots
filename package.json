@@ -15,5 +15,9 @@
 		"typescript": "^5.5.2",
 		"vitest": "~3.0.7",
 		"wrangler": "^4.14.1"
+	},
+	"dependencies": {
+		"fuse.js": "^7.1.0",
+		"itty-router": "^5.0.18"
 	}
 }
