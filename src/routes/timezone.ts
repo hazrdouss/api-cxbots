@@ -48,7 +48,7 @@ export async function getTimezone(req: Request): Promise<Response> {
 		entry.timezone === timezone
 	);
 
-	if (!match) return fail("Timezone not found", 404);
+	if (!match) return fail("Country / City not found", 404);
 
 	return success({city: match.city, country: match.country, ...getTimeInfo(match.timezone)});
 }
