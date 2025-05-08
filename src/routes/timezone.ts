@@ -1,5 +1,6 @@
 import timezonesDataRaw from '../data/timezones.json';
 import { success, fail } from '../utils/response';
+import Fuse from "fuse.js"
 
 interface TimezoneEntry {
 	city: string;
@@ -16,6 +17,16 @@ interface TimezoneEntry {
 
 const timezonesData = timezonesDataRaw as TimezoneEntry[];
 
+const fuse = new Fuse(timezonesData, {
+	keys: [
+		{ name: 'country', weight: 0.5 },
+		{ name: 'city', weight: 0.3 },
+		{ name: 'city_ascii', weight: 0.1 },
+		{ name: 'province', weight: 0.1 }
+	],
+	threshold: 0.3,
+});
+
 function getTimeInfo(timezone: string) {
 	const timeInTimezone = new Date().toLocaleString('en-US', { timeZone: timezone });
 	const time = new Date(timeInTimezone);
@@ -28,13 +39,9 @@ export async function searchTimezone(req: Request): Promise<Response> {
 	const location = new URL(req.url).searchParams.get('location');
 	if (!location) return fail("Location query param required");
 
-	const result = timezonesData.find(entry =>
-		entry.city.toLowerCase().includes(location.toLowerCase()) ||
-		entry.city_ascii.toLowerCase().includes(location.toLowerCase()) ||
-		entry.country.toLowerCase().includes(location.toLowerCase()) ||
-		entry.province.toLowerCase().includes(location.toLowerCase())
-	);
-	if (!result) return fail("Timezone not found", 404);
+	const results = fuse.search(location);
+	if (!results.length) return fail("Timezone not found", 404);
+	const result = results[0].item;
 
 	return success({searchQuery: location, city: result.city, country: result.country, ...getTimeInfo(result.timezone)});
 }
