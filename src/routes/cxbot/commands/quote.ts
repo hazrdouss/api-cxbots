@@ -26,7 +26,7 @@ export async function quote(req: Request, env: { DISCORD_TOKEN: string }): Promi
 	const avatar = searchParams.get('avatar');
 	const name = searchParams.get('name');
 	const channel = searchParams.get('channel') || '';
-	const message = searchParams.get('message') || `Check out this quote from @${name}`;
+	const message = searchParams.get('message') || '';
 	const reply = searchParams.get('reply'); // <- new param
 
 	if (!quote) return fail('Missing quote param', 400);
