@@ -70,7 +70,7 @@ export async function checkpermissions(req: Request, env: { DISCORD_TOKEN: strin
 	if (!permissionsParam) return fail('Missing permissions param', 400);
 	if (!user || !server) return fail('Missing user or server param', 400);
 
-	const requestedPerms = permissionsParam.split(',').map(p => p.trim().toUpperCase());
+	const requestedPerms = permissionsParam.split(',').map(p => p.trim().toUpperCase().replace(/\s/g, '_'));
 
 	const getMemberRes = await fetch(`https://discord.com/api/v10/guilds/${server}/members/${user}`, {
 		headers: { Authorization: DISCORD_TOKEN }
