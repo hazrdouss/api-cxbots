@@ -7,6 +7,8 @@ interface DefinitionEntry {
 	example?: string;
 	author?: string;
 	date?: string;
+	upvotes?: number;
+	downvotes?: number;
 }
 
 async function parseDefinitionData(el: HTMLDivElement): Promise<DefinitionEntry> {
@@ -17,7 +19,9 @@ async function parseDefinitionData(el: HTMLDivElement): Promise<DefinitionEntry>
 		definition: getText('.meaning'),
 		example: getText('.example'),
 		author: getText('.contributor a'),
-		date: dateMatch?.[0]
+		date: dateMatch?.[0],
+		upvotes: getText('[aria-label*="vote up"]') || 'test',
+		downvotes: getText('[aria-label*="vote down"]') || 'test'
 	};
 }
 
@@ -55,7 +59,7 @@ export async function define(req: Request): Promise<Response> {
 			entries.push(...defs.filter(d => d.definition));
 
 			if (entries.length >= limit) {
-				entries.length = limit; // cut off extras
+				entries.length = limit;
 				break;
 			}
 		}
