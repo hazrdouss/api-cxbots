@@ -1,14 +1,5 @@
 import { success, fail } from '../../../utils/response';
 
-interface QueryParams {
-	quote: string;
-	avatar: string;
-	name: string;
-	channel: string;
-	message?: string;
-	reply?: string;
-}
-
 function cloudinaryEncodeURIComponent(text: string): string {
 	return encodeURIComponent(text).replace(/%2[CF5]/g, (match) => '%25' + match.slice(1));
 }
@@ -27,7 +18,7 @@ export async function quote(req: Request, env: { DISCORD_TOKEN: string }): Promi
 	const name = searchParams.get('name');
 	const channel = searchParams.get('channel') || '';
 	const message = searchParams.get('message') || '';
-	const reply = searchParams.get('reply'); // <- new param
+	const reply = searchParams.get('reply');
 
 	if (!quote) return fail('Missing quote param', 400);
 	if (!avatar) return fail('Missing avatar param', 400);
