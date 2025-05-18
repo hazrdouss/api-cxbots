@@ -17,8 +17,12 @@
 		"wrangler": "^4.14.1"
 	},
 	"dependencies": {
+		"@resvg/resvg-wasm": "^2.6.2",
+		"emoji-regex": "^10.4.0",
 		"fuse.js": "^7.1.0",
 		"itty-router": "^5.0.18",
-		"linkedom": "^0.18.10"
+		"linkedom": "^0.18.10",
+		"satori": "^0.13.1",
+		"workers-og": "^0.0.25"
 	}
 }
