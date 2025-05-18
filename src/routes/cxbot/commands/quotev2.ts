@@ -62,7 +62,7 @@ export async function quotev2(req: Request, env: { DISCORD_TOKEN: string }): Pro
         ">${quote.replace(/<a?:.+:\d+>/g, '')}</p>
         <span style="
           color: #555555;
-          font-size: 18px;
+          font-size: 22px;
           font-style: italic;
         ">@${author}</span>
       </div>
