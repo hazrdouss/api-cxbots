@@ -31,6 +31,8 @@ export async function quotev2(req: Request, env: { DISCORD_TOKEN: string }): Pro
 		weight: 700,
 	});
 
+	console.log(notoEmoji)
+
 	const html = `
     <div style="position: relative; width: 1024px; height: 512px; display: flex; background: black; font-family: 'Noto Sans', 'Emoji', 'monospace';">
       <img src="${avatar}" width="512" height="512" style="object-fit: cover; filter: grayscale(100%);" />
