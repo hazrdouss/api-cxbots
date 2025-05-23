@@ -40,7 +40,7 @@ export async function getGiveawayWinners(req: Request, env: { CXUTIL_TOKEN: stri
 
 		const filteredUsers = users.filter(id => id !== ignoredUserId);
 
-		if (filteredUsers.length === 0) return fail('No valid users reacted with the given emoji', 404);
+		if (filteredUsers.length === 0) return success({ winners: "nobody" });
 
 		for (let i = filteredUsers.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
